@@ -1,7 +1,7 @@
 {
-  "name": "itmap",
+  "name": "itpre",
   "version": "1.0.0",
-  "description": "",
+  "description": "JS API for pre-processing text.",
   "main": "index.js",
   "type": "module",
   "scripts": {
@@ -9,5 +9,8 @@
   },
   "keywords": [],
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "undici": "^5.27.0"
+  }
 }

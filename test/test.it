@@ -60,3 +60,7 @@
 {map(statuses) {
     | [[service]] | [[status]] |
 }}
+
+{insert(date) {
+    **Last updated [[date]]**
+}}
