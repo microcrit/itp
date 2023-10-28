@@ -12,9 +12,9 @@ function read(file) {
     return { name, ext, content, path: filepath };
 };
 
-export function parse(file, vars = {}) {
+export function parse(file, opts = {vars: {}, plugins: []}) {
     const { name, ext, content, path } = read(file);
-    return parser(name, ext, content, path, vars);
+    return parser(name, ext, content, path, opts.vars || {}, opts.plugins || []);
 }
 
 export var FileType = ft;
