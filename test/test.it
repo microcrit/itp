@@ -1,0 +1,62 @@
+@markdown
+%pref ignore_newlines
+
+{fn check[] {
+    const undici = await import('undici');
+    const services = [
+        "https://example.com",
+        "https://httpbin.org"
+    ];
+    const results = await Promise.all(services.map(async (service) => {
+        try {
+            const { statusCode } = await undici.request(service, {
+                method: "HEAD",
+                headers: {
+                    "user-agent": "Mozilla/5.0 (Macintosh; U; Intel Mac OS X 7_3_1) Gecko/20100101 Firefox/68.3"
+                }
+            });
+            return { service, statusCode };
+        } catch (error) {
+            return { service, statusCode: error.statusCode };
+        }
+    }));
+    const down = results.filter(({ statusCode }) => statusCode !== 200);
+    const up = results.filter(({ statusCode }) => statusCode === 200);
+    const upTexts = up.map(x => { return {
+        service: x.service,
+        status: "✅"
+    }; });
+    const downTexts = down.map(x => { return {
+        service: x.service,
+        status: "❌"
+    }; });
+    const serviceLists = upTexts.concat(downTexts);
+    return serviceLists;
+}}
+
+{check[] | statuses}
+
+{fn statusText[] {
+    const statuses = [[statuses]];
+    if (statuses.every(({ status }) => status === "✅")) {
+        return "All services are up.";
+    } else if (statuses.every(({ status }) => status === "❌")) {
+        return "All services are down.";
+    } else {
+        return "Some services are down.";
+    }
+    return "Unknown status.";
+}}
+
+{statusText[] | text}
+%pref ignore_newlines end
+
+{insert(text) {
+    # [[text]]
+}}
+
+| Service | Status |
+| ------- | ------ |
+{map(statuses) {
+    | [[service]] | [[status]] |
+}}
