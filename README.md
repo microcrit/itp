@@ -52,4 +52,6 @@ fs.writeFileSync('./any.file', file, 'utf8');
 {if(variable_name == "variable") {
     # Hello, World!
 }}
+
+{render("./output_file.png")}
 ```
