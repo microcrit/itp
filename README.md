@@ -1,5 +1,8 @@
 # itp
+*no longer maintained*   
 Inline text preprocessor.
+
+I made this to test my luck at making an (albeit bad) poor-mans parser.
 
 ## Usage
 ```js
